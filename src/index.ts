@@ -1,5 +1,5 @@
 import express from "express";
-import { readAllShiftsInDate } from "./readShifts";
+import { addShift, readAllShiftsInDate } from "./process";
 
 const app = express();
 
@@ -9,7 +9,19 @@ const app = express();
 
 app.get("/:date", (req, res) => {
   const allShiftsInDate = readAllShiftsInDate(req.params.date);
-  res.send(allShiftsInDate);
+  allShiftsInDate
+    ? res.send(allShiftsInDate)
+    : res.send("No shift in this date");
+});
+
+app.post("/add/:date/:name/:startTime/:endTime", (req, res) => {
+  addShift(
+    req.params.date,
+    req.params.name,
+    req.params.startTime,
+    req.params.endTime
+  );
+  res.send("ok");
 });
 
 app.listen(3000, () => {
