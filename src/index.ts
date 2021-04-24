@@ -3,7 +3,7 @@ import express from "express";
 const app = express();
 
 app.get("/", (req, res) => {
-  res.send("Hai and Yen, Wir sind toll!!!!!");
+  res.send("Hai und Yen, Wir sind toll! Wowhoooo!!");
 });
 
 app.listen(3000, () => {
