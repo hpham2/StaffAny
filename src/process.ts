@@ -32,3 +32,18 @@ export const addShift = (
   const existedDate = data.find((d) => d.date == date);
   existedDate ? existedDate.shifts.push(shiftDetail) : data.push(dateDetail);
 };
+
+export const deleteShift = (id: string) => {
+  const dateContainDeletedShift = data.find((d) =>
+    d.shifts.find((s) => s.id === id)
+  );
+
+  if (!dateContainDeletedShift) return;
+
+  const indexDeletedShift = dateContainDeletedShift.shifts.findIndex(
+    (e) => e.id === id
+  );
+  dateContainDeletedShift.shifts.splice(indexDeletedShift, 1);
+
+  return "deleted";
+};
