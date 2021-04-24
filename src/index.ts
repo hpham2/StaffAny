@@ -1,5 +1,10 @@
 import express from "express";
-import { addShift, deleteShift, readAllShiftsInDate } from "./process";
+import {
+  addShift,
+  deleteShift,
+  editShift,
+  readAllShiftsInDate,
+} from "./process";
 
 const app = express();
 
@@ -24,9 +29,19 @@ app.post("/add/:date/:name/:startTime/:endTime", (req, res) => {
   res.send("ok");
 });
 
+app.put("/edit/:id/:name/:startTime/:endTime", (req, res) => {
+  const updatedDate = editShift(
+    req.params.id,
+    req.params.name,
+    req.params.startTime,
+    req.params.endTime
+  );
+  updatedDate ? res.send(updatedDate) : res.send("No shift found");
+});
+
 app.delete("/:id", (req, res) => {
-  const deletedShift = deleteShift(req.params.id);
-  deletedShift ? res.send(deletedShift) : res.send("No shift found");
+  const updatedDate = deleteShift(req.params.id);
+  updatedDate ? res.send(updatedDate) : res.send("No shift found");
 });
 
 app.listen(3000, () => {

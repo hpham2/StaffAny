@@ -33,7 +33,7 @@ export const addShift = (
   existedDate ? existedDate.shifts.push(shiftDetail) : data.push(dateDetail);
 };
 
-export const deleteShift = (id: string) => {
+export const deleteShift = (id: string): DateShiftType | undefined => {
   const dateContainDeletedShift = data.find((d) =>
     d.shifts.find((s) => s.id === id)
   );
@@ -45,5 +45,31 @@ export const deleteShift = (id: string) => {
   );
   dateContainDeletedShift.shifts.splice(indexDeletedShift, 1);
 
-  return "deleted";
+  return dateContainDeletedShift;
+};
+
+export const editShift = (
+  id: string,
+  name: string,
+  startTime: string,
+  endTime: string
+): DateShiftType | undefined => {
+  const dateContainEditShift = data.find((d) =>
+    d.shifts.find((s) => s.id === id)
+  );
+
+  if (!dateContainEditShift) return;
+
+  const indexEditShift = dateContainEditShift.shifts.findIndex(
+    (e) => e.id === id
+  );
+
+  dateContainEditShift.shifts[indexEditShift] = {
+    id,
+    name,
+    start_time: startTime,
+    end_time: endTime,
+  };
+
+  return dateContainEditShift;
 };
