@@ -10,7 +10,7 @@ export const addShift = (
   name: string,
   startTime: string,
   endTime: string
-) => {
+): DateShiftType => {
   const shiftDetail: ShiftType = {
     id: "s_" + Math.round(1000000 * Math.random()).toString(),
     name,
@@ -24,13 +24,15 @@ export const addShift = (
     shifts: [shiftDetail],
   };
 
-  if (data.length === 0) {
-    data.push(dateDetail);
-    return;
-  }
-
   const existedDate = data.find((d) => d.date == date);
-  existedDate ? existedDate.shifts.push(shiftDetail) : data.push(dateDetail);
+
+  if (existedDate) {
+    existedDate.shifts.push(shiftDetail);
+    return existedDate;
+  } else {
+    data.push(dateDetail);
+    return dateDetail;
+  }
 };
 
 export const deleteShift = (id: string): DateShiftType | undefined => {

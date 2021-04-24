@@ -20,13 +20,13 @@ app.get("/:date", (req, res) => {
 });
 
 app.post("/add/:date/:name/:startTime/:endTime", (req, res) => {
-  addShift(
+  const updatedDate = addShift(
     req.params.date,
     req.params.name,
     req.params.startTime,
     req.params.endTime
   );
-  res.send("ok");
+  res.send(updatedDate);
 });
 
 app.put("/edit/:id/:name/:startTime/:endTime", (req, res) => {
@@ -39,7 +39,7 @@ app.put("/edit/:id/:name/:startTime/:endTime", (req, res) => {
   updatedDate ? res.send(updatedDate) : res.send("No shift found");
 });
 
-app.delete("/:id", (req, res) => {
+app.delete("/delete/:id", (req, res) => {
   const updatedDate = deleteShift(req.params.id);
   updatedDate ? res.send(updatedDate) : res.send("No shift found");
 });
