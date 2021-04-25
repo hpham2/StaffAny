@@ -2,9 +2,12 @@ import { data } from "./database/data";
 import { DateShiftType } from "./database/models/date";
 import { ShiftType } from "./database/models/shift";
 
+// @desc     Return all shifts in the requested date
 export const readAllShiftsInDate = (date: string): DateShiftType | undefined =>
   data.find((d) => d.date == date);
 
+// @desc     Add a new shift
+// @return   A date containing added shift
 export const addShift = (
   date: string,
   name: string,
@@ -35,6 +38,8 @@ export const addShift = (
   }
 };
 
+// @desc     Delate a shift
+// @return   A date containing deleted shift
 export const deleteShift = (id: string): DateShiftType | undefined => {
   const dateContainDeletedShift = data.find((d) =>
     d.shifts.find((s) => s.id === id)
@@ -50,6 +55,8 @@ export const deleteShift = (id: string): DateShiftType | undefined => {
   return dateContainDeletedShift;
 };
 
+// @desc     Modify existing shift
+// @return   A date containing modified shift
 export const editShift = (
   id: string,
   name: string,
